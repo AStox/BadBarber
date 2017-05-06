@@ -28,17 +28,24 @@ public class Cutter : MonoBehaviour {
 				// 	verts[i] = collider.ClosestPoint(meshObj.gameObject.transform.position);
 				// }
 				if (Vector3.Distance(verts[i], transform.position) < 0.25f) {
-					float distance = Vector3.Distance(verts[i], meshObj.transform.position);
-					Vector3 target1 = transform.position + ((verts[i] - transform.position).normalized * 0.25f);
-					Vector3 target2 = transform.position + ((transform.position - verts[i]).normalized * 0.25f);
-					float newDist1 = Vector3.Distance(target1, meshObj.transform.position);
-					float newDist2 = Vector3.Distance(target2, meshObj.transform.position);
-					if (newDist1 < distance) {
-						verts[i] = target1;
-					} else if (newDist2 < distance) {
-						verts[i] = target2;
+					RaycastHit hit;
+					Debug.Log("gguh");
+
+					if (Physics.Raycast(meshObj.transform.position, verts[i] - meshObj.transform.position, out hit)) {
+						verts[i] = hit.point;
+						Debug.Log("uh");
 					}
-					verts[i] = transform.position + ((verts[i] - transform.position).normalized * 0.25f);
+					// float distance = Vector3.Distance(verts[i], meshObj.transform.position);
+					// Vector3 target1 = transform.position + ((verts[i] - transform.position).normalized * 0.25f);
+					// Vector3 target2 = transform.position + ((transform.position - verts[i]).normalized * 0.25f);
+					// float newDist1 = Vector3.Distance(target1, meshObj.transform.position);
+					// float newDist2 = Vector3.Distance(target2, meshObj.transform.position);
+					// if (newDist1 < distance) {
+					// 	verts[i] = target1;
+					// } else if (newDist2 < distance) {
+					// 	verts[i] = target2;
+					// }
+					// verts[i] = transform.position + ((verts[i] - transform.position).normalized * 0.25f);
 				}
 			}
 			mesh.vertices = verts;
