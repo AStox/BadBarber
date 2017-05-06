@@ -27,14 +27,12 @@ public class Cutter : MonoBehaviour {
 				// if (collider.bounds.Contains(verts[i])) {
 				// 	verts[i] = collider.ClosestPoint(meshObj.gameObject.transform.position);
 				// }
-				if (Vector3.Distance(verts[i], transform.position) < 0.25f) {
-					RaycastHit hit;
-					Debug.Log("gguh");
 
-					if (Physics.Raycast(meshObj.transform.position, verts[i] - meshObj.transform.position, out hit)) {
+				// if (Vector3.Distance(verts[i], transform.position) < 0.25f) {
+					RaycastHit hit;
+					if (Physics.Raycast(meshObj.transform.position, verts[i] - meshObj.transform.position, out hit, Vector3.Distance(meshObj.transform.position, verts[i]))) {
 						verts[i] = hit.point;
-						Debug.Log("uh");
-					}
+					// }
 					// float distance = Vector3.Distance(verts[i], meshObj.transform.position);
 					// Vector3 target1 = transform.position + ((verts[i] - transform.position).normalized * 0.25f);
 					// Vector3 target2 = transform.position + ((transform.position - verts[i]).normalized * 0.25f);
