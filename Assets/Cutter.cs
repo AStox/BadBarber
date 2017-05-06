@@ -5,7 +5,7 @@ using PlanarMeshGenerator;
 
 public class Cutter : MonoBehaviour {
 
-	float depth = 10;
+	float depth;
 	public GameObject meshObj;
 	Mesh mesh;
 	Collider collider;
@@ -16,6 +16,7 @@ public class Cutter : MonoBehaviour {
 		cutting = false;
 		collider = GetComponent<SphereCollider>();
 		mesh = meshObj.GetComponent<MeshFilter>().mesh;
+		depth = Camera.main.transform.position.z;
 	}
 
 	void Update () {
@@ -23,8 +24,11 @@ public class Cutter : MonoBehaviour {
 		verts = mesh.vertices;
 		if (cutting) {
 			for(int i = 0; i < verts.Length; i++) {
-				if (collider.bounds.Contains(verts[i])) {
-					verts[i] = collider.bounds.ClosestPoint(meshObj.gameObject.transform.position);
+				// if (collider.bounds.Contains(verts[i])) {
+				// 	verts[i] = collider.ClosestPoint(meshObj.gameObject.transform.position);
+				// }
+				if (Vector3.Distance(verts[i], transform.position) < ((SphereCollider)collider).radius) {
+					verts[i] = collider.ClosestPoint(verts[i]);
 				}
 			}
 			mesh.vertices = verts;
