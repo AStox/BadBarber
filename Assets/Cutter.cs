@@ -42,6 +42,7 @@ public class Cutter : MonoBehaviour {
 				}
 			}
 			mesh.vertices = verts;
+			mesh.RecalculateBounds();
 		}
 
 		if (Input.GetMouseButtonDown(0)) {
