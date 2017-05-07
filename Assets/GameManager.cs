@@ -41,17 +41,18 @@ public class GameManager : MonoBehaviour {
 	public void NewPatron () {
 		if (currentPatron) {
 			currentPatron.GetComponent<Animator>().Play("Exit");
-			WaitForAnimation(currentPatron.GetComponent<Animator>(), "Exit");
+			StartCoroutine(WaitForAnimation());
 		}
-		newPatron = Instantiate(patrons[(int)UnityEngine.Random.Range(0, patrons.Length + 1)], new Vector3(-0.25f,-0.5f, 0.87f), Quaternion.identity);
-		newPatron.GetComponent<Animator>().Play("Enter");
-		currentPatron = newPatron;
+
 	}
 
-	IEnumerator WaitForAnimation (Animator anim, String name) {
-		while (anim.GetCurrentAnimatorStateInfo(0).IsName(name)){
-			yield return null;
-		}
-		Destroy(anim.gameObject);
+	IEnumerator WaitForAnimation () {
+		yield return new WaitForSeconds(0.5f);
+		Destroy(currentPatron);
+		newPatron = Instantiate(patrons[(int)UnityEngine.Random.Range(0, patrons.Length)], new Vector3(-0.25f,-0.5f, 0.87f), Quaternion.identity);
+		newPatron.GetComponent<Animator>().Play("Enter");
+		currentPatron = newPatron;
+		GameObject.Find("cutter").GetComponent<Cutter>().meshObj = GameObject.Find("Sphere_007");
+		GameObject.Find("cutter").GetComponent<Cutter>().Start();
 	}
 }

@@ -13,7 +13,7 @@ public class Cutter : MonoBehaviour {
 	Vector3 center;
 	public Animator anim;
 
-	void Start () {
+	public void Start () {
 		cutting = false;
 		collider = GetComponent<MeshCollider>();
 		mesh = meshObj.GetComponent<MeshFilter>().mesh;
@@ -22,6 +22,9 @@ public class Cutter : MonoBehaviour {
 	}
 
 	void Update () {
+		if (!meshObj) {
+			meshObj = GameObject.Find("Sphere_007");
+		}
 		Movement();
 		verts = mesh.vertices;
 		if (cutting) {
