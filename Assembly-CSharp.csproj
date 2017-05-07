@@ -46,10 +46,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\BezierCurves\Scripts\BezierCurve.cs" />
+     <Compile Include="Assets\BezierCurves\Scripts\BezierPoint.cs" />
      <Compile Include="Assets\Cutter.cs" />
-     <Compile Include="Assets\PlanarMeshGenerator\MeshGenerator.cs" />
-     <None Include="Assets\PlanarMeshGenerator\Shaders\LitRimmed.shader" />
-     <None Include="Assets\PlanarMeshGenerator\Shaders\UnlitRimmed.shader" />
+     <Compile Include="Assets\GameManager.cs" />
+     <Compile Include="Assets\GuideCurve.cs" />
+     <Compile Include="Assets\Head.cs" />
+     <None Include="Assets\BezierCurves\readme.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

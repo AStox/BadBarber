@@ -46,9 +46,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\PlanarMeshGenerator\Editor\MeshGeneratorEditor.cs" />
-     <None Include="Assets\PlanarMeshGenerator\Shaders\LitRimmed.shader" />
-     <None Include="Assets\PlanarMeshGenerator\Shaders\UnlitRimmed.shader" />
+     <Compile Include="Assets\BezierCurves\Editor\BezierCurveEditor.cs" />
+     <Compile Include="Assets\BezierCurves\Editor\BezierPointEditor.cs" />
+     <None Include="Assets\BezierCurves\readme.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
