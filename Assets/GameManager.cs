@@ -6,14 +6,15 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
-	public BezierCurve insideCurve;
-	public BezierCurve outsideCurve;
+	BezierCurve insideCurve;
+	BezierCurve outsideCurve;
 	public float resolution;
 	public static int score;
 	Text scoreText;
 	public GameObject currentPatron;
 	GameObject newPatron;
 	public GameObject[] patrons;
+	bool switching;
 
 	void Start () {
 		scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
@@ -21,10 +22,14 @@ public class GameManager : MonoBehaviour {
 
 	void Update () {
 		score = 0;
-		CheckHaircut ();
+		if (!switching) {
+			CheckHaircut ();
+		}
 	}
 
 	void CheckHaircut () {
+		insideCurve = currentPatron.GetComponentsInChildren<BezierCurve>()[0];
+		outsideCurve = currentPatron.GetComponentsInChildren<BezierCurve>()[1];
 		float length = 100;
 		RaycastHit hit;
 		for (int i = 0; i < length; i++) {
@@ -39,20 +44,19 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void NewPatron () {
+		switching = true;
 		if (currentPatron) {
 			currentPatron.GetComponent<Animator>().Play("Exit");
 			StartCoroutine(WaitForAnimation());
 		}
-
 	}
 
 	IEnumerator WaitForAnimation () {
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.3f);
 		Destroy(currentPatron);
 		newPatron = Instantiate(patrons[(int)UnityEngine.Random.Range(0, patrons.Length)], new Vector3(-0.25f,-0.5f, 0.87f), Quaternion.identity);
 		newPatron.GetComponent<Animator>().Play("Enter");
 		currentPatron = newPatron;
-		GameObject.Find("cutter").GetComponent<Cutter>().meshObj = GameObject.Find("Sphere_007");
-		GameObject.Find("cutter").GetComponent<Cutter>().Start();
+		switching = false;
 	}
 }

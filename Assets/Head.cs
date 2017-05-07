@@ -15,7 +15,6 @@ public class Head : MonoBehaviour {
 		anim = GetComponent<Animator>();
 		collider = meshObj.GetComponent<MeshCollider>();
 		mesh = meshObj.GetComponent<MeshFilter>().mesh;
-		GameObject.Find("cutter").GetComponent<Cutter>().meshObj = meshObj;
 	}
 
 	void Update () {

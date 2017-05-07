@@ -5,7 +5,7 @@ using UnityEngine;
 public class Cutter : MonoBehaviour {
 
 	float depth;
-	public GameObject meshObj;
+	// public GameObject meshObj;
 	Mesh mesh;
 	Collider collider;
 	bool cutting;
@@ -16,26 +16,25 @@ public class Cutter : MonoBehaviour {
 	public void Start () {
 		cutting = false;
 		collider = GetComponent<MeshCollider>();
-		mesh = meshObj.GetComponent<MeshFilter>().mesh;
 		depth = Camera.main.transform.position.z;
-		center = mesh.bounds.center;
 	}
 
 	void Update () {
-		if (!meshObj) {
-			meshObj = GameObject.Find("Sphere_007");
-		}
 		Movement();
-		verts = mesh.vertices;
 		if (cutting) {
-			for(int i = 0; i < verts.Length; i++) {
-				RaycastHit hit;
-				if (Physics.Raycast(center, meshObj.transform.TransformPoint(verts[i]) - center, out hit, Vector3.Distance(center, meshObj.transform.TransformPoint(verts[i])))) {
-					verts[i] = meshObj.transform.InverseTransformPoint(hit.point);
+			foreach (GameObject hair in GameObject.FindGameObjectsWithTag("Hair")) {
+				mesh = hair.GetComponent<MeshFilter>().mesh;
+				center = mesh.bounds.center;
+				verts = mesh.vertices;
+				for(int i = 0; i < verts.Length; i++) {
+					RaycastHit hit;
+					if (Physics.Raycast(center, hair.transform.TransformPoint(verts[i]) - center, out hit, Vector3.Distance(center, hair.transform.TransformPoint(verts[i])))) {
+						verts[i] = hair.transform.InverseTransformPoint(hit.point);
+					}
 				}
+				mesh.vertices = verts;
+				// mesh.RecalculateBounds();
 			}
-			mesh.vertices = verts;
-			mesh.RecalculateBounds();
 		}
 
 		if (Input.GetMouseButtonDown(0)) {
