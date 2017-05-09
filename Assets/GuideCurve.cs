@@ -8,7 +8,7 @@ public class GuideCurve : MonoBehaviour {
 	Vector3[] points;
 	LineRenderer line;
 
-	void Start () {
+	public void DrawLine () {
 		curve = GetComponent<BezierCurve>();
 		line = GetComponent<LineRenderer>();
 		int length = 100;
